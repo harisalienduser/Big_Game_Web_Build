@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>File Picker</title>
+    <script>
+        function handleFileSelect(evt) {
+            var files = evt.target.files; // FileList object
+
+            // Do something with the selected file(s)
+            // For example, read the file contents
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var path = files[0].name; // Get the file name as the path
+                UnitySendMessage("FilePicker", "OnFileSelected", path); // Send the path back to Unity
+            };
+            reader.readAsText(files[0]);
+        }
+
+        function OpenFilePicker() {
+            var input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.pptx'; // Optional: specify file types to accept
+            input.addEventListener('change', handleFileSelect, false);
+            input.click();
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>
